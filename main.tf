@@ -156,5 +156,5 @@ resource "ibm_is_instance" "test_schematics_demo_vsi_server" {
 
 resource "ibm_is_floating_ip" "test_schematics_demo_fip" {
   name   = "test-schematics-demo-fip"
-  target = ibm_is_instance.test_schematics_demo_vsi.primary_network_interface.0.id
+  target = ibm_is_instance.test_schematics_demo_vsi_client.primary_network_interface.0.id
 }
