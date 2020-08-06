@@ -102,7 +102,7 @@ resource "ibm_is_instance" "test_schematics_demo_vsi" {
 
   primary_network_interface {
     subnet          = ibm_is_subnet.test_schematics_demo_subnet.id
-    security_groups = [ibm_is_security_group.f5_terraform_ansible_host_vsi_sg.id]
+    security_groups = [ibm_is_security_group.test_schematics_demo_sg.id]
   }
 
   vpc  = ibm_is_vpc.test_schematics_demo_vpc.id
