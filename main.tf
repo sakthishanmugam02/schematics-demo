@@ -93,9 +93,9 @@ resource "ibm_is_security_group_rule" "test_schematics_demo_sg_rule_all_out" {
   remote     = "0.0.0.0/0"
 }
 
-resource "ibm_is_instance" "test_schematics_demo_vsi" {
+resource "ibm_is_instance" "test_schematics_demo_vsi_client" {
   depends_on = [ibm_is_security_group_rule.test_schematics_demo_sg_rule_all_out]
-  name           = "test-schematics-demo-vsi"
+  name           = "test-schematics-demo-vsi-client"
   image          = data.ibm_is_image.test_schematics_demo_image.id
   profile        = "bx2-16x64"
   resource_group = data.ibm_resource_group.rg.id
@@ -122,6 +122,37 @@ resource "ibm_is_instance" "test_schematics_demo_vsi" {
     delete = "10m"
   }
 }
+
+resource "ibm_is_instance" "test_schematics_demo_vsi_server" {
+  depends_on = [ibm_is_security_group_rule.test_schematics_demo_sg_rule_all_out]
+  name           = "test-schematics-demo-vsi-server"
+  image          = data.ibm_is_image.test_schematics_demo_image.id
+  profile        = "bx2-16x64"
+  resource_group = data.ibm_resource_group.rg.id
+
+  primary_network_interface {
+    subnet          = ibm_is_subnet.test_schematics_demo_subnet.id
+    security_groups = [ibm_is_security_group.test_schematics_demo_sg.id]
+  }
+
+  vpc  = ibm_is_vpc.test_schematics_demo_vpc.id
+  zone = "us-south-1"
+  keys = ["${data.ibm_is_ssh_key.test_schematics_demo_ssh_key.id}"]
+
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
+
+  #provisioner "local-exec" {
+  #  command = "ansible-playbook -i '${ibm_is_floating_ip.address},' --private-key ${var.private_key_path} ../ansible/httpd.yml"
+  #}
+
+  timeouts {
+    create = "10m"
+    delete = "10m"
+  }
+}
+
 
 resource "ibm_is_floating_ip" "test_schematics_demo_fip" {
   name   = "test-schematics-demo-fip"
