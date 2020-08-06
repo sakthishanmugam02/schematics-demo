@@ -51,7 +51,8 @@ resource "ibm_dns_resource_record" "test_schematics_demo_pdns_record_a" {
   zone_id     = ibm_dns_zone.test_schematics_demo_pdns_zone.zone_id
   type        = "A"
   name        = "testA"
-  rdata       = ibm_is_instance.test_schematics_demo_vsi_client.network_interfaces[0].primary_ipv4_address
+  #rdata       = ibm_is_instance.test_schematics_demo_vsi_client.network_interfaces[0].primary_ipv4_address
+  rdata = "1.2.3.4"
   ttl         = 900
 }
 
