@@ -174,6 +174,10 @@ resource "ibm_dns_resource_record" "test_schematics_demo_pdns_record_a" {
   ttl         = 900
 }
 
+###
+#6 Assign floating IP to the client VSI
+###
+
 resource "ibm_is_floating_ip" "test_schematics_demo_fip" {
   name   = "test-schematics-demo-fip"
   target = ibm_is_instance.test_schematics_demo_vsi_client.primary_network_interface.0.id
