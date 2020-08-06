@@ -57,7 +57,7 @@ resource "ibm_dns_resource_record" "test_schematics_demo_pdns_record_a" {
 
 resource "ibm_is_subnet" "test_schematics_demo_subnet" {
   name            = "test-schematics-demo-subnet"
-  vpc             = ibm_is_vpc.f5_terraform_ansible_vpc.id
+  vpc             = ibm_is_vpc.test_schematics_demo_vpc.id
   zone            = var.zone
   ipv4_cidr_block = "10.240.0.0/24"
 }
