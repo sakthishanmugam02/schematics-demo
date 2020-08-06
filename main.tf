@@ -46,7 +46,7 @@ resource "ibm_dns_permitted_network" "test_schematics_demo_pdns_permitted_networ
 }
 
 resource "ibm_dns_resource_record" "test_schematics_demo_pdns_record_a" {
-  depends_on  = [ibm_dns_permitted_network.test_schematics_demo_pdns_permitted_network]
+  depends_on  = [ibm_dns_permitted_network.test_schematics_demo_pdns_permitted_network, ibm_is_instance.test_schematics_demo_vsi_server]
   instance_id = ibm_resource_instance.test_schematics_demo_pdns.guid
   zone_id     = ibm_dns_zone.test_schematics_demo_pdns_zone.zone_id
   type        = "A"
