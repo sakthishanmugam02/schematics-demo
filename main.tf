@@ -182,3 +182,22 @@ resource "ibm_is_floating_ip" "test_schematics_demo_fip" {
   name   = "test-schematics-demo-fip"
   target = ibm_is_instance.test_schematics_demo_vsi_client.primary_network_interface.0.id
 }
+
+###
+#7 Output variables
+###
+
+output "server_private_ip" {
+  value       = ibm_is_instance.test_schematics_demo_vsi_server.primary_network_interface[0].primary_ipv4_address
+  description = "The private IP of the server."
+}
+
+output "client_private_ip" {
+  value       = ibm_is_instance.test_schematics_demo_vsi_client.primary_network_interface[0].primary_ipv4_address
+  description = "The private IP of the client."
+}
+
+output "client_floating_ip" {
+  value       = ibm_is_floating_ip.test_schematics_demo_fip.address
+  description = "The floating IP of the client."
+}
